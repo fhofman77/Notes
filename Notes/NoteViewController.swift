@@ -17,4 +17,5 @@ class NoteViewController: UIViewController {
         note!.content = contentTextView.text
         NoteManager.shared.saveNote(note: note!)
     }
+    
 }
