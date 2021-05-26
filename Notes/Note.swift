@@ -4,6 +4,7 @@ import SQLite3
 struct Note {
     var id: Int32
     var content: String
+    var noteCategory = "All"
 }
 
 class NoteManager {
