@@ -4,7 +4,9 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -63,23 +65,53 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Write a note!" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="aWQ-If-xl0">
-                                <rect key="frame" x="0.0" y="88" width="414" height="808"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Write a note!" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="aWQ-If-xl0">
+                                <rect key="frame" x="0.0" y="126" width="414" height="770"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillProportionally" translatesAutoresizingMaskIntoConstraints="NO" id="pc5-99-cdt">
+                                <rect key="frame" x="52" y="88" width="310.5" height="34"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="eQG-4m-hwW">
+                                        <rect key="frame" x="0.0" y="0.0" width="247" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="18"/>
+                                        <state key="normal" title="Category">
+                                            <color key="titleColor" systemColor="labelColor"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="categoryPicker:" destination="Vbt-1M-dNT" eventType="touchUpInside" id="3B3-jK-Qd6"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="n8l-KI-NWF">
+                                        <rect key="frame" x="247" y="0.0" width="63.5" height="34"/>
+                                        <state key="normal">
+                                            <imageReference key="image" image="chevron.down.circle" catalog="system" renderingMode="original"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="categoryPicker:" destination="Vbt-1M-dNT" eventType="touchUpInside" id="IFB-29-MeE"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="7"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </stackView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Csg-Sz-fWf"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="aWQ-If-xl0" firstAttribute="trailing" secondItem="Csg-Sz-fWf" secondAttribute="trailing" id="SLZ-j1-45o"/>
-                            <constraint firstAttribute="bottom" secondItem="aWQ-If-xl0" secondAttribute="bottom" id="VF1-Qy-M5k"/>
-                            <constraint firstItem="aWQ-If-xl0" firstAttribute="top" secondItem="Csg-Sz-fWf" secondAttribute="top" id="X90-An-gyy"/>
-                            <constraint firstItem="aWQ-If-xl0" firstAttribute="leading" secondItem="Csg-Sz-fWf" secondAttribute="leading" id="y06-87-Kml"/>
+                            <constraint firstItem="pc5-99-cdt" firstAttribute="centerX" secondItem="Csg-Sz-fWf" secondAttribute="centerX" id="8Tx-q1-S5k"/>
+                            <constraint firstItem="pc5-99-cdt" firstAttribute="top" secondItem="Csg-Sz-fWf" secondAttribute="top" id="Op3-ap-dRk"/>
+                            <constraint firstItem="pc5-99-cdt" firstAttribute="width" secondItem="YPG-GB-2cp" secondAttribute="width" multiplier="0.75" id="U1c-xf-9bc"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="categoryButton" destination="eQG-4m-hwW" id="8Vm-MV-sQz"/>
                         <outlet property="contentTextView" destination="aWQ-If-xl0" id="Lvs-su-VYc"/>
                     </connections>
                 </viewController>
@@ -104,4 +136,10 @@
             <point key="canvasLocation" x="-632" y="99"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="chevron.down.circle" catalog="system" width="128" height="121"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
 </document>
