@@ -36,14 +36,19 @@ class NoteManager {
             database,
             """
             CREATE TABLE IF NOT EXISTS notes (
-                content TEXT
-            )
+                content TEXT,
+                category TEXT
+            );
             """,
             nil,
             nil,
             nil
         ) != SQLITE_OK {
             print("Error creating table: \(String(cString: sqlite3_errmsg(database)!))")
+        }
+        else
+        {
+            print("could not create table")
         }
     }
     
@@ -94,13 +99,14 @@ class NoteManager {
         var statement: OpaquePointer? = nil
         if sqlite3_prepare_v2(
             database,
-            "UPDATE notes SET content = ? WHERE rowid = ?",
+            "UPDATE notes SET content = ?,category = ? WHERE rowid = ?",
             -1,
             &statement,
             nil
         ) == SQLITE_OK {
             sqlite3_bind_text(statement, 1, NSString(string: note.content).utf8String, -1, nil)
-            sqlite3_bind_int(statement, 2, note.id)
+            sqlite3_bind_text(statement, 2, NSString(string: note.noteCategory).utf8String, -1, nil)
+            sqlite3_bind_int(statement, 3, note.id)
             if sqlite3_step(statement) != SQLITE_DONE {
                 print("Error saving note")
             }

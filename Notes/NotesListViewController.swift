@@ -63,16 +63,6 @@ class NotesListViewController: UITableViewController, UISearchResultsUpdating, U
             NoteManager.shared.deleteNote(note: notes[indexPath.row])
             reload()
         }
-        
-        var thisNote: Note!
-        
-        if(searchController.isActive) {
-            thisNote = filteredCategories[indexPath.row]
-        }
-        else
-        {
-            thisNote = filteredCategories[indexPath.row]
-        }
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -90,7 +80,6 @@ class NotesListViewController: UITableViewController, UISearchResultsUpdating, U
     }
     
     func updateSearchResults(for searchController: UISearchController) {
-        print("updates search results")
         let searchBar = searchController.searchBar
         let scopeButton = searchBar.scopeButtonTitles![searchBar.selectedScopeButtonIndex]
         let searchText = searchBar.text!
@@ -99,14 +88,11 @@ class NotesListViewController: UITableViewController, UISearchResultsUpdating, U
     }
     
     func filterText (searchText: String, scopeButton: String = "All") {
-        print("enters filter function")
         filteredCategories = notes.filter
         {
             notes in
             let scopeMatch = (scopeButton == "All" || notes.noteCategory.contains(scopeButton.lowercased()))
-            print("scopematch is \(scopeMatch)")
             if(searchController.searchBar.text != "") {
-                print(notes)
                 let searchTextMatch = notes.content.lowercased().contains(searchText.lowercased())
                 
                 return scopeMatch && searchTextMatch

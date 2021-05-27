@@ -66,7 +66,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="Write a note!" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="aWQ-If-xl0">
-                                <rect key="frame" x="0.0" y="126" width="414" height="770"/>
+                                <rect key="frame" x="0.0" y="154" width="414" height="742"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="18"/>
@@ -95,6 +95,7 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <color key="backgroundColor" red="0.87330668099999997" green="0.90021430899999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="7"/>
@@ -106,7 +107,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="pc5-99-cdt" firstAttribute="centerX" secondItem="Csg-Sz-fWf" secondAttribute="centerX" id="8Tx-q1-S5k"/>
-                            <constraint firstItem="pc5-99-cdt" firstAttribute="top" secondItem="Csg-Sz-fWf" secondAttribute="top" id="Op3-ap-dRk"/>
+                            <constraint firstItem="pc5-99-cdt" firstAttribute="top" secondItem="Csg-Sz-fWf" secondAttribute="top" id="FKZ-T3-PVS"/>
                             <constraint firstItem="pc5-99-cdt" firstAttribute="width" secondItem="YPG-GB-2cp" secondAttribute="width" multiplier="0.75" id="U1c-xf-9bc"/>
                         </constraints>
                     </view>

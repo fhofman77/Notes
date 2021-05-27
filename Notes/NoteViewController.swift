@@ -12,6 +12,7 @@ class NoteViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        print(note!.noteCategory)
         
         contentTextView.text = note!.content
     }
@@ -19,7 +20,43 @@ class NoteViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     @IBAction func categoryPicker(_ sender: Any) {
         let viewController = UIViewController()
-        viewController.preferredContentSize = CGSize(width: screenWidth, height: <#T##CGFloat#>)
+        viewController.preferredContentSize = CGSize(width: screenWidth, height: screenHeight)
+        let pickerView = UIPickerView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight))
+        pickerView.dataSource = self
+        pickerView.delegate = self
+        
+        pickerView.selectRow(selectedRow, inComponent: 0, animated: false)
+        viewController.view.addSubview(pickerView)
+        pickerView.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor).isActive = true
+        pickerView.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor).isActive = true
+        
+        let alert = UIAlertController(title: "Select category", message: "", preferredStyle: .actionSheet)
+        
+        alert.popoverPresentationController?.sourceView = categoryButton
+        alert.popoverPresentationController?.sourceRect = categoryButton.bounds
+        
+        alert.setValue(viewController, forKey: "contentViewController")
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: { (UIAlertAction)
+            in
+        }))
+        
+        print("test")
+        alert.addAction(UIAlertAction(title: "Select", style: .default, handler: { (UIAlertAction) in
+            self.selectedRow = pickerView.selectedRow(inComponent: 0)
+            let selected = self.categoryList[self.selectedRow]
+            let category = selected
+            self.note!.noteCategory = category
+            self.note!.content = self.contentTextView.text
+            self.categoryButton.setTitle(self.note?.noteCategory, for: .normal)
+            print(self.note!.noteCategory)
+            
+            print("does this work?\(String(describing: self.note?.noteCategory))")
+
+            
+            NoteManager.shared.saveNote(note: self.note!)
+        }))
+        
+        self.present(alert, animated: true, completion: nil)
     }
     
     func pickerView(_ pickerView: UIPickerView, viewForRow row: Int, forComponent component: Int, reusing view: UIView?) -> UIView {
