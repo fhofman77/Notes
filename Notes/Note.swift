@@ -37,8 +37,8 @@ class NoteManager {
             """
             CREATE TABLE IF NOT EXISTS notes (
                 content TEXT,
-                category TEXT
-            );
+                noteCategory TEXT
+            )
             """,
             nil,
             nil,
@@ -46,10 +46,7 @@ class NoteManager {
         ) != SQLITE_OK {
             print("Error creating table: \(String(cString: sqlite3_errmsg(database)!))")
         }
-        else
-        {
-            print("could not create table")
-        }
+
     }
     
     func create() -> Int {
@@ -58,7 +55,7 @@ class NoteManager {
         var statement: OpaquePointer? = nil
         if sqlite3_prepare_v2(
             database,
-            "INSERT INTO notes (content) VALUES ('Write a note!')",
+            "INSERT INTO notes (content, noteCategory) VALUES ('Write a note!', 'All')",
             -1,
             &statement,
             nil
@@ -66,9 +63,6 @@ class NoteManager {
             if sqlite3_step(statement) != SQLITE_DONE {
                 print("Error inserting note")
             }
-        }
-        else {
-            print("Error creating note insert statement")
         }
         
         sqlite3_finalize(statement)
@@ -80,11 +74,12 @@ class NoteManager {
         
         var result: [Note] = []
         var statement: OpaquePointer? = nil
-        if sqlite3_prepare_v2(database, "SELECT rowid, content FROM notes", -1, &statement, nil) == SQLITE_OK {
+        if sqlite3_prepare_v2(database, "SELECT rowid, content, noteCategory FROM notes", -1, &statement, nil) == SQLITE_OK {
             while sqlite3_step(statement) == SQLITE_ROW {
                 result.append(Note(
                     id: sqlite3_column_int(statement, 0),
-                    content: String(cString: sqlite3_column_text(statement, 1))
+                    content: String(cString: sqlite3_column_text(statement, 1)),
+                    noteCategory: String(cString: sqlite3_column_text(statement, 2))
                 ))
             }
         }
@@ -99,7 +94,7 @@ class NoteManager {
         var statement: OpaquePointer? = nil
         if sqlite3_prepare_v2(
             database,
-            "UPDATE notes SET content = ?,category = ? WHERE rowid = ?",
+            "UPDATE notes SET content = ?, noteCategory = ? WHERE rowid = ?",
             -1,
             &statement,
             nil

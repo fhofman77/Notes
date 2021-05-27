@@ -67,7 +67,19 @@ class NotesListViewController: UITableViewController, UISearchResultsUpdating, U
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "NoteCell", for: indexPath)
-        cell.textLabel?.text = notes[indexPath.row].content
+//        cell.textLabel?.text = notes[indexPath.row].content
+        
+        let thisCategory: Note!
+        if(searchController.isActive) {
+            thisCategory = filteredCategories[indexPath.row]
+        }
+        else
+        {
+            thisCategory = notes[indexPath.row]
+        }
+        
+        cell.textLabel?.text = thisCategory.content
+        
         return cell
     }
     
@@ -91,9 +103,12 @@ class NotesListViewController: UITableViewController, UISearchResultsUpdating, U
         filteredCategories = notes.filter
         {
             notes in
-            let scopeMatch = (scopeButton == "All" || notes.noteCategory.contains(scopeButton.lowercased()))
+            let scopeMatch = (scopeButton == "All" || notes.noteCategory.lowercased() == scopeButton.lowercased())
+            print("notes\(notes.id): \(notes.noteCategory.lowercased())")
+            print(scopeMatch)
+            print("scope button \(scopeButton.lowercased())")
             if(searchController.searchBar.text != "") {
-                let searchTextMatch = notes.content.lowercased().contains(searchText.lowercased())
+                let searchTextMatch = notes.noteCategory.lowercased().contains(searchText.lowercased())
                 
                 return scopeMatch && searchTextMatch
             }
@@ -102,6 +117,7 @@ class NotesListViewController: UITableViewController, UISearchResultsUpdating, U
                 return scopeMatch
             }
         }
+        print("filtered categories \(filteredCategories)")
         reload()
     }
 }

@@ -12,7 +12,9 @@ class NoteViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        print(note!.noteCategory)
+        if self.categoryButton.description != "All" {
+            self.categoryButton.setTitle(self.note?.noteCategory, for: .normal)
+        }
         
         contentTextView.text = note!.content
     }
@@ -27,7 +29,7 @@ class NoteViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
         
         pickerView.selectRow(selectedRow, inComponent: 0, animated: false)
         viewController.view.addSubview(pickerView)
-        pickerView.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor).isActive = true
+        pickerView.centerXAnchor.constraint(equalTo: viewController.view.centerXAnchor).isActive = false
         pickerView.centerYAnchor.constraint(equalTo: viewController.view.centerYAnchor).isActive = true
         
         let alert = UIAlertController(title: "Select category", message: "", preferredStyle: .actionSheet)
@@ -40,18 +42,13 @@ class NoteViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             in
         }))
         
-        print("test")
         alert.addAction(UIAlertAction(title: "Select", style: .default, handler: { (UIAlertAction) in
             self.selectedRow = pickerView.selectedRow(inComponent: 0)
             let selected = self.categoryList[self.selectedRow]
             let category = selected
             self.note!.noteCategory = category
-            self.note!.content = self.contentTextView.text
+//            self.note!.content = self.contentTextView.text
             self.categoryButton.setTitle(self.note?.noteCategory, for: .normal)
-            print(self.note!.noteCategory)
-            
-            print("does this work?\(String(describing: self.note?.noteCategory))")
-
             
             NoteManager.shared.saveNote(note: self.note!)
         }))
