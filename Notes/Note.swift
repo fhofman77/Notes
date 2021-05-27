@@ -83,7 +83,6 @@ class NoteManager {
                 ))
             }
         }
-        
         sqlite3_finalize(statement)
         return result
     }
@@ -122,7 +121,6 @@ class NoteManager {
             if sqlite3_step(statement) != SQLITE_DONE {
                 print("Error deleting note")
             }
-            
         }
     }
 }

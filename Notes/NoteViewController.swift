@@ -47,7 +47,6 @@ class NoteViewController: UIViewController, UIPickerViewDelegate, UIPickerViewDa
             let selected = self.categoryList[self.selectedRow]
             let category = selected
             self.note!.noteCategory = category
-//            self.note!.content = self.contentTextView.text
             self.categoryButton.setTitle(self.note?.noteCategory, for: .normal)
             
             NoteManager.shared.saveNote(note: self.note!)

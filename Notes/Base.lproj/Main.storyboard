@@ -107,7 +107,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
                             <constraint firstItem="pc5-99-cdt" firstAttribute="centerX" secondItem="Csg-Sz-fWf" secondAttribute="centerX" id="8Tx-q1-S5k"/>
-                            <constraint firstItem="pc5-99-cdt" firstAttribute="top" secondItem="Csg-Sz-fWf" secondAttribute="top" id="FKZ-T3-PVS"/>
+                            <constraint firstItem="pc5-99-cdt" firstAttribute="top" secondItem="Csg-Sz-fWf" secondAttribute="top" constant="10" id="FKZ-T3-PVS"/>
                             <constraint firstItem="pc5-99-cdt" firstAttribute="width" secondItem="YPG-GB-2cp" secondAttribute="width" multiplier="0.75" id="U1c-xf-9bc"/>
                         </constraints>
                     </view>
